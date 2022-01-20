@@ -42,6 +42,35 @@ class SoundPlayer:
     def resume_sound(self):
         mixer.music.unpause()
 
+    # def song_list(self):
+    #     song_listbox = Listbox(self.window, selectmode=SINGLE, bg="white", fg="black", font=('arial', 15), height=12,
+    #                            width=47,
+    #                            selectbackground="gray", selectforeground="black")
+    #     song_listbox.place(x=300, y=200)
+    #
+    #     song_listbox.grid(column=1, row=0)
+    #
+    #     return song_listbox
+
+    def menu(self):
+        menu = Menu(self.window)
+        file_menu = Menu(menu, tearoff=0)
+        file_menu.add_command(label="Add song", command=self.add_song)
+        file_menu.add_command(label="Delete song", command=self.add_song)
+        file_menu.add_separator()
+
+        file_menu.add_command(label="Exit", command=self.window.quit)
+
+        menu.add_cascade(label="File", menu=file_menu)
+        self.window.config(menu=menu)
+
+    def add_song(self):
+        songs = filedialog.askopenfilenames(initialdir="audio/", title="Choose a song",
+                                            filetypes=(("mp3 Files", "*.mp3"),))
+        for song in songs:
+            song = song.replace(os.getcwd() + '/media/audio/', '')
+            self.song_listbox.insert(END, song)
+
 
 s = SoundPlayer()
 s.mainloop()
