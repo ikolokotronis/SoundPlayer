@@ -7,11 +7,21 @@ import shutil
 
 class SoundPlayer:
     def __init__(self):
+        mixer.init()
         self.window = Tk()
         self.song_listbox = Listbox(self.window, selectmode=SINGLE, bg="grey40", fg="black", font=('arial', 15),
-                                    height=12, width=47, selectbackground="grey70", selectforeground="black")
+                                    height=10, width=47, selectbackground="grey70", selectforeground="black")
 
         self.song_listbox.place(x=45, y=25)
+
+        self.slider = Scale(self.window,
+                            from_=100, to=0,
+                            fg="black", bg="grey30",
+                            command=self.set_volume,
+                            showvalue=False)
+        self.slider.set(50)
+        self.slider.pack()
+        self.slider.place(x=10, y=285)
 
     def configuration(self):
         self.window.title('Sound player')
@@ -37,7 +47,6 @@ class SoundPlayer:
         self.resume_button.place(x=250, y=350)
 
     def mainloop(self):
-        mixer.init()
         self.window.mainloop()
 
     def play_sound(self):
@@ -52,6 +61,9 @@ class SoundPlayer:
     def resume_sound(self):
         mixer.music.unpause()
 
+    def set_volume(self, volume):
+        mixer.music.set_volume(self.slider.get()/100)
+
     def menu(self):
         menu = Menu(self.window)
         file_menu = Menu(menu, tearoff=0)
@@ -59,7 +71,7 @@ class SoundPlayer:
         # file_menu.add_command(label="Delete song", command=self.add_song)
         file_menu.add_separator()
         file_menu.add_command(label="Exit", command=self.window.quit)
-        menu.add_cascade(label="File", menu=file_menu)
+        menu.add_cascade(label="Menu", menu=file_menu)
 
         self.window.config(menu=menu)
 
