@@ -11,7 +11,6 @@ class SoundPlayer:
                                     height=12, width=47, selectbackground="grey70", selectforeground="black")
         self.song_listbox.place(x=45, y=25)
 
-
     def configuration(self):
         self.window.resizable(False, False)
         self.window.configure(background='grey23')
@@ -35,7 +34,7 @@ class SoundPlayer:
     def mainloop(self):
         mixer.init()
         self.window.title('Audio player')
-        self.window.geometry("600x400+500+250")
+        self.window.geometry("600x400+600+250")
         self.window.mainloop()
 
     def play_sound(self):
@@ -49,16 +48,6 @@ class SoundPlayer:
 
     def resume_sound(self):
         mixer.music.unpause()
-
-    # def song_list(self):
-    #     song_listbox = Listbox(self.window, selectmode=SINGLE, bg="white", fg="black", font=('arial', 15), height=12,
-    #                            width=47,
-    #                            selectbackground="gray", selectforeground="black")
-    #     song_listbox.place(x=300, y=200)
-    #
-    #     song_listbox.grid(column=1, row=0)
-    #
-    #     return song_listbox
 
     def menu(self):
         menu = Menu(self.window)
