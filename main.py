@@ -10,11 +10,15 @@ class SoundPlayer:
         self.window = Tk()
         self.song_listbox = Listbox(self.window, selectmode=SINGLE, bg="grey40", fg="black", font=('arial', 15),
                                     height=12, width=47, selectbackground="grey70", selectforeground="black")
+
         self.song_listbox.place(x=45, y=25)
 
     def configuration(self):
+        self.window.title('Sound player')
+        self.window.geometry("600x400+600+250")
         self.window.resizable(False, False)
         self.window.configure(background='grey23')
+
         self.menu()
         self.buttons()
 
@@ -34,8 +38,6 @@ class SoundPlayer:
 
     def mainloop(self):
         mixer.init()
-        self.window.title('Sound player')
-        self.window.geometry("600x400+600+250")
         self.window.mainloop()
 
     def play_sound(self):
@@ -54,12 +56,11 @@ class SoundPlayer:
         menu = Menu(self.window)
         file_menu = Menu(menu, tearoff=0)
         file_menu.add_command(label="Add song", command=self.add_song)
-        file_menu.add_command(label="Delete song", command=self.add_song)
+        # file_menu.add_command(label="Delete song", command=self.add_song)
         file_menu.add_separator()
-
         file_menu.add_command(label="Exit", command=self.window.quit)
-
         menu.add_cascade(label="File", menu=file_menu)
+
         self.window.config(menu=menu)
 
     def add_song(self):
