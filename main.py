@@ -2,6 +2,7 @@ from tkinter import *
 from pygame import mixer
 from tkinter import filedialog
 import os
+import shutil
 
 
 class SoundPlayer:
@@ -33,7 +34,7 @@ class SoundPlayer:
 
     def mainloop(self):
         mixer.init()
-        self.window.title('Audio player')
+        self.window.title('Sound player')
         self.window.geometry("600x400+600+250")
         self.window.mainloop()
 
@@ -65,8 +66,9 @@ class SoundPlayer:
         songs = filedialog.askopenfilenames(initialdir="audio/", title="Choose a song",
                                             filetypes=(("mp3 Files", "*.mp3"),))
         for song in songs:
-            song = song.replace(os.getcwd() + '/media/audio/', '')
-            self.song_listbox.insert(END, song)
+            song_name = os.path.basename(song)
+            shutil.copy2(song, os.getcwd() + "/media/audio/")
+            self.song_listbox.insert(END, song_name)
 
 
 s = SoundPlayer()
