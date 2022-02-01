@@ -7,27 +7,35 @@ import os
 class SoundPlayer:
     def __init__(self):
         self.window = Tk()
+        self.song_listbox = Listbox(self.window, selectmode=SINGLE, bg="grey40", fg="black", font=('arial', 15),
+                                    height=12, width=47, selectbackground="grey70", selectforeground="black")
+        self.song_listbox.place(x=45, y=25)
+
+
+    def configuration(self):
+        self.window.resizable(False, False)
+        self.window.configure(background='grey23')
         self.menu()
         self.buttons()
-        self.song_listbox = Listbox(self.window, selectmode=SINGLE, bg="white", fg="black", font=('arial', 15),
-                                    height=12, width=47, selectbackground="gray", selectforeground="black")
-        self.song_listbox.place(x=300, y=200)
 
-        self.song_listbox.grid(column=1, row=0)
+    def auto_song_add(self):
+        song_list = os.listdir('media/audio/')
+        for song in song_list:
+            self.song_listbox.insert(END, song)
 
     def buttons(self):
-        self.play_button = Button(self.window, text="Play", fg="blue", command=self.play_sound)
-        self.pause_button = Button(self.window, text="Pause", fg="red", command=self.pause_sound)
-        self.resume_button = Button(self.window, text="Resume", fg="green", command=self.resume_sound)
+        self.play_button = Button(self.window, text="Play", fg="black", bg="forest green", command=self.play_sound)
+        self.pause_button = Button(self.window, text="Pause", fg="black", bg="sea green", command=self.pause_sound)
+        self.resume_button = Button(self.window, text="Resume", fg="black", bg="dark green", command=self.resume_sound)
 
-        self.play_button.place(x=300, y=450)
-        self.pause_button.place(x=400, y=450)
-        self.resume_button.place(x=500, y=450)
+        self.play_button.place(x=330, y=350)
+        self.pause_button.place(x=185, y=350)
+        self.resume_button.place(x=250, y=350)
 
     def mainloop(self):
         mixer.init()
         self.window.title('Audio player')
-        self.window.geometry("800x600+500+250")
+        self.window.geometry("600x400+500+250")
         self.window.mainloop()
 
     def play_sound(self):
@@ -73,4 +81,6 @@ class SoundPlayer:
 
 
 s = SoundPlayer()
+s.configuration()
+s.auto_song_add()
 s.mainloop()
