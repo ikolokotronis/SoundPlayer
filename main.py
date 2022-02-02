@@ -21,10 +21,10 @@ class SoundPlayer:
                             showvalue=False)
         self.slider.set(50)
         self.slider.pack()
-        self.slider.place(x=10, y=285)
+        self.slider.place(x=12, y=285)
 
     def configuration(self):
-        self.window.title('Sound player')
+        self.window.title('Sound Player')
         self.window.geometry("600x400+600+250")
         self.window.resizable(False, False)
         self.window.configure(background='grey23')
@@ -39,12 +39,18 @@ class SoundPlayer:
 
     def buttons(self):
         self.play_button = Button(self.window, text="Play", fg="black", bg="forest green", command=self.play_sound)
-        self.pause_button = Button(self.window, text="Pause", fg="black", bg="sea green", command=self.pause_sound)
+        self.pause_button = Button(self.window, text="Pause", fg="black", bg="yellow4", command=self.pause_sound)
         self.resume_button = Button(self.window, text="Resume", fg="black", bg="dark green", command=self.resume_sound)
+
+        self.forward_button = Button(self.window, text="+10s", fg="black", bg="grey90", command=self.fast_forward)
+        self.backward_button = Button(self.window, text="-10s", fg="black", bg="grey90", command=self.rewind_backward)
 
         self.play_button.place(x=330, y=350)
         self.pause_button.place(x=185, y=350)
         self.resume_button.place(x=250, y=350)
+
+        self.forward_button.place(x=285, y=310)
+        self.backward_button.place(x=235, y=310)
 
     def mainloop(self):
         self.window.mainloop()
@@ -60,6 +66,12 @@ class SoundPlayer:
 
     def resume_sound(self):
         mixer.music.unpause()
+
+    def fast_forward(self):
+        mixer.music.set_pos((mixer.music.get_pos()/1000)+10)
+
+    def rewind_backward(self):
+        mixer.music.set_pos((mixer.music.get_pos()/1000)-10)
 
     def set_volume(self, volume):
         mixer.music.set_volume(self.slider.get()/100)
