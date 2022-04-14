@@ -1,5 +1,5 @@
 # Sound Player
-This is a basic sound player app made with python and tkinter.
+This is a sound player app made with tkinter with basic functions
 # Setup
 1. Inside the main directory (next to main.py) create a folder named "media"  
 2. Move to new location (cd media/))
