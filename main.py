@@ -67,12 +67,6 @@ class SoundPlayer:
     def resume_sound(self):
         mixer.music.unpause()
 
-    # def fast_forward(self):
-    #     mixer.music.set_pos((mixer.music.get_pos()/1000)+10)
-    #
-    # def rewind_backward(self):
-    #     mixer.music.set_pos((mixer.music.get_pos()/1000)-10)
-
     def set_volume(self, volume):
         mixer.music.set_volume(self.slider.get()/100)
 
@@ -80,7 +74,7 @@ class SoundPlayer:
         menu = Menu(self.window)
         file_menu = Menu(menu, tearoff=0)
         file_menu.add_command(label="Add song", command=self.add_song)
-        # file_menu.add_command(label="Delete song", command=self.add_song)
+        # file_menu.add_command(label="Delete song", command=self.add_song) <= TODO
         file_menu.add_separator()
         file_menu.add_command(label="Exit", command=self.window.quit)
         menu.add_cascade(label="Menu", menu=file_menu)
