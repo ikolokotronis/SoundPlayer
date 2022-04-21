@@ -11,7 +11,7 @@ class SoundPlayer:
         mixer.init()
         self.window = Tk()
         self.song_listbox = Listbox(self.window, selectmode=SINGLE, bg="grey40", fg="black", font=('arial', 15),
-                                    height=10, width=47, selectbackground="grey70", selectforeground="black")
+                                    height=10, width=42, selectbackground="grey70", selectforeground="black")
 
         self.song_listbox.place(x=45, y=25)
 
@@ -26,7 +26,7 @@ class SoundPlayer:
 
     def configuration(self):
         self.window.title('Sound Player')
-        self.window.geometry("600x400+600+250")
+        self.window.geometry("555x400+650+250")
         self.window.resizable(False, False)
         self.window.configure(background='grey23')
 
