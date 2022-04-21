@@ -1,3 +1,4 @@
+from pathlib import Path
 from tkinter import *
 from pygame import mixer
 from tkinter import filedialog
@@ -68,7 +69,7 @@ class SoundPlayer:
         menu = Menu(self.window)
         file_menu = Menu(menu, tearoff=0)
         file_menu.add_command(label="Add song", command=self.add_song)
-        # file_menu.add_command(label="Delete song", command=self.add_song) <= TODO
+        file_menu.add_command(label="Delete song", command=self.delete_song)
         file_menu.add_separator()
         file_menu.add_command(label="Exit", command=self.window.quit)
         menu.add_cascade(label="Menu", menu=file_menu)
@@ -76,12 +77,19 @@ class SoundPlayer:
         self.window.config(menu=menu)
 
     def add_song(self):
-        songs = filedialog.askopenfilenames(initialdir="audio/", title="Choose a song",
+        songs = filedialog.askopenfilenames(initialdir=str(Path.home() / "Downloads"), title="Choose a song to add",
                                             filetypes=(("mp3 Files", "*.mp3"),))
         for song in songs:
             song_name = os.path.basename(song)
             shutil.copy2(song, os.getcwd() + "/media/audio/")
             self.song_listbox.insert(END, song_name)
+
+    def delete_song(self):
+        songs = filedialog.askopenfilenames(initialdir="media/audio//", title="Choose a song to delete",
+                                            filetypes=(("mp3 Files", "*.mp3"),))
+        for song in songs:
+            os.remove(song)
+            self.song_listbox.delete(self.song_listbox.index(self.song_listbox.curselection()))
 
 
 s = SoundPlayer()
