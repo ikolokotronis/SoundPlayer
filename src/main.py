@@ -93,18 +93,19 @@ class SoundPlayer:
     def delete_song(self):
         songs = filedialog.askopenfilenames(initialdir="../media/audio//", title="Choose a song to delete",
                                             filetypes=(("mp3 Files", "*.mp3"),))
-        for song in songs:
-            print(os.path.basename(song))
-            print(self.song_listbox.index(os.path.basename(song)))
-            print(self.song_listbox.index(self.song_listbox.curselection()))
-            os.remove(song)
-            self.song_listbox.delete(0)
+        for song_path in songs:
+            song_list = os.listdir('../media/audio/')
+            for song in song_list:
+                if os.path.basename(song_path) == song:
+                    os.remove(song_path)
+                    self.song_listbox.delete(END, song_list.index(song))
 
     def delete_all(self):
         self.song_listbox.delete(0, END)
         song_list = os.listdir('../media/audio/')
-        for song in song_list:
-            os.remove(song)
+        for song_path in song_list:
+            os.remove(os.getcwd() + "/../media/audio/"+song_path)
+
 
 s = SoundPlayer()
 s.configuration()
