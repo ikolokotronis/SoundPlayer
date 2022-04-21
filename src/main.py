@@ -34,25 +34,31 @@ class SoundPlayer:
         self.buttons()
 
     def auto_song_add(self):
-        song_list = os.listdir('media/audio/')
+        song_list = os.listdir('../media/audio/')
         for song in song_list:
             self.song_listbox.insert(END, song)
 
     def buttons(self):
+
         self.play_button = Button(self.window, text="Play", fg="black", bg="forest green", command=self.play_sound)
         self.pause_button = Button(self.window, text="Pause", fg="black", bg="yellow4", command=self.pause_sound)
         self.resume_button = Button(self.window, text="Resume", fg="black", bg="dark green", command=self.resume_sound)
 
-        self.play_button.place(x=330, y=350)
+        self.delete_all_button = Button(self.window, text="Delete all ", fg="black", bg="dark red", command=self.delete_all)
+
         self.pause_button.place(x=185, y=350)
         self.resume_button.place(x=250, y=350)
+        self.play_button.place(x=326, y=350)
+
+        self.delete_all_button.place(x=45, y=280)
+
         
     def mainloop(self):
         self.window.mainloop()
 
     def play_sound(self):
         active_song = self.song_listbox.get(ACTIVE)
-        song_path = os.getcwd() + "/media/audio/" + active_song
+        song_path = os.getcwd() + "/../media/audio/" + active_song
         mixer.music.load(song_path)
         mixer.music.play()
 
@@ -81,16 +87,24 @@ class SoundPlayer:
                                             filetypes=(("mp3 Files", "*.mp3"),))
         for song in songs:
             song_name = os.path.basename(song)
-            shutil.copy2(song, os.getcwd() + "/media/audio/")
+            shutil.copy2(song, os.getcwd() + "/../media/audio/")
             self.song_listbox.insert(END, song_name)
 
     def delete_song(self):
-        songs = filedialog.askopenfilenames(initialdir="media/audio//", title="Choose a song to delete",
+        songs = filedialog.askopenfilenames(initialdir="../media/audio//", title="Choose a song to delete",
                                             filetypes=(("mp3 Files", "*.mp3"),))
         for song in songs:
+            print(os.path.basename(song))
+            print(self.song_listbox.index(os.path.basename(song)))
+            print(self.song_listbox.index(self.song_listbox.curselection()))
             os.remove(song)
-            self.song_listbox.delete(self.song_listbox.index(self.song_listbox.curselection()))
+            self.song_listbox.delete(0)
 
+    def delete_all(self):
+        self.song_listbox.delete(0, END)
+        song_list = os.listdir('../media/audio/')
+        for song in song_list:
+            os.remove(song)
 
 s = SoundPlayer()
 s.configuration()
