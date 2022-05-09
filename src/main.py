@@ -52,8 +52,8 @@ class SoundPlayer:
         self.resume_button.place(x=250, y=350)
         self.play_button.place(x=326, y=350)
 
-        self.delete_button.place(x=45, y=320)
-        self.delete_all_button.place(x=45, y=280)
+        self.delete_button.place(x=45, y=280)
+        self.delete_all_button.place(x=45, y=320)
 
         
     def mainloop(self):
