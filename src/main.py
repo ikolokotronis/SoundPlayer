@@ -44,12 +44,15 @@ class SoundPlayer:
         self.pause_button = Button(self.window, text="Pause", fg="black", bg="yellow4", command=self.pause_sound)
         self.resume_button = Button(self.window, text="Resume", fg="black", bg="dark green", command=self.resume_sound)
 
-        self.delete_all_button = Button(self.window, text="Delete all ", fg="black", bg="dark red", command=self.delete_all)
+        self.delete_button = Button(self.window, text="Delete", fg="black", bg="dark red", command=self.delete_song)
+
+        self.delete_all_button = Button(self.window, text="Delete all", fg="black", bg="dark red", command=self.delete_all)
 
         self.pause_button.place(x=185, y=350)
         self.resume_button.place(x=250, y=350)
         self.play_button.place(x=326, y=350)
 
+        self.delete_button.place(x=45, y=320)
         self.delete_all_button.place(x=45, y=280)
 
         
@@ -75,7 +78,6 @@ class SoundPlayer:
         menu = Menu(self.window)
         file_menu = Menu(menu, tearoff=0)
         file_menu.add_command(label="Add song", command=self.add_song)
-        file_menu.add_command(label="Delete song", command=self.delete_song)
         file_menu.add_separator()
         file_menu.add_command(label="Exit", command=self.window.quit)
         menu.add_cascade(label="Menu", menu=file_menu)
@@ -91,14 +93,12 @@ class SoundPlayer:
             self.song_listbox.insert(END, song_name)
 
     def delete_song(self):
-        songs = filedialog.askopenfilenames(initialdir="../media/audio//", title="Choose a song to delete",
-                                            filetypes=(("mp3 Files", "*.mp3"),))
-        for song_path in songs:
-            song_list = os.listdir('../media/audio/')
-            for song in song_list:
-                if os.path.basename(song_path) == song:
-                    os.remove(song_path)
-                    self.song_listbox.delete(END, song_list.index(song))
+        current_selection = self.song_listbox.get(self.song_listbox.index(self.song_listbox.curselection()))
+        song_list = os.listdir('../media/audio/')
+        for song in song_list:
+            if current_selection == song:
+                os.remove(os.getcwd() + "/../media/audio/" + song)
+                self.song_listbox.delete(self.song_listbox.index(self.song_listbox.curselection()))
 
     def delete_all(self):
         self.song_listbox.delete(0, END)
