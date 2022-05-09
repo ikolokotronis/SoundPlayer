@@ -23,3 +23,7 @@ mkdir audio
 Now app reads mp3 files from the relative directory ./media/audio/.  
   
 After this set up you can add songs from inside the app's menu, or by moving them directly to new created location.
+
+
+### Note
+The app reads only .mp3 files
